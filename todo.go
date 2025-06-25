@@ -58,9 +58,27 @@ func ListTasks() {
 }
 
 func CompleteTask(id int) {
-	panic("unimplemented")
+	var tasks, error = loadTasks()
+	if error != nil {
+		panic(error)
+	}
+	for i, t := range tasks {
+		if t.ID == id {
+			tasks[i].Done = true
+		}
+	}
+	saveTasks(tasks)
 }
 
 func DeleteTask(id int) {
-	panic("unimplemented")
+	var tasks, error = loadTasks()
+	if error != nil {
+		panic(error)
+	}
+	for i, t := range tasks {
+		if t.ID == id {
+			tasks = append(tasks[:i], tasks[i+1:]...)
+		}
+	}
+    saveTasks(tasks)
 }
